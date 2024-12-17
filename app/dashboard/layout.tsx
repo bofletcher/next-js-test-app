@@ -1,18 +1,19 @@
+import { cookies } from "next/headers";
+
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 
-export default function DashboardLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export async function Layout({ children }: { children: React.ReactNode }) {
+  const cookieStore = await cookies();
+  const defaultOpen = cookieStore.get("sidebar:state")?.value === "true";
+
   return (
-    <SidebarProvider>
-      <div style={{ display: "flex", height: "100vh" }}>
-        <AppSidebar /> {/* Sidebar */}
-        <main style={{ flex: 1, overflow: "auto" }}>
-          <SidebarTrigger /> {/* Sidebar toggle */}
-          {children}
-        </main>
-      </div>
+    <SidebarProvider defaultOpen={defaultOpen}>
+      <AppSidebar />
+      <main>
+        <SidebarTrigger />
+        {children}
+      </main>
     </SidebarProvider>
   );
 }
