@@ -1,9 +1,10 @@
-// app/dashboard/page.tsx
+import "react";
+
 export default function DashboardPage() {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <p>Welcome to the dashboard!</p>
+      <h1></h1>
+      <p></p>
     </div>
   );
 }
